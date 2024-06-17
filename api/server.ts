@@ -53,7 +53,7 @@ app.get('/threads/:id', (req, res) => {
     res.json(JSON.stringify(thread))
 })
 
-app.get('/threads/all', (req, res) => {
+app.get('/allthreads', (req, res) => {
     res.send(JSON.stringify(threads))
 })
 

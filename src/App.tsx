@@ -7,21 +7,39 @@ type ThreadProps = {
   messages: MessageProps[]
 }
 
-const tempThread = {
-  id: '1a',
-  messages: [
-    {
-      id: '1a',
-      sender: 'Bob',
-      text: 'Hey this is bob the builder'
-    },
-    {
-      id: '2a',
-      sender: 'Jimmy',
-      text: 'jimmy the ripper is coming for you'
-    }
-  ]
-}
+const tempThreads = [
+  {
+    id: '1a',
+    messages: [
+      {
+        id: '1a',
+        sender: 'Bob',
+        text: 'Hey this is bob the builder'
+      },
+      {
+        id: '2a',
+        sender: 'Jimmy',
+        text: 'jimmy the ripper is coming for you'
+      }
+    ]
+  },
+
+]
+// const tempThread = {
+//   id: '1a',
+//   messages: [
+//     {
+//       id: '1a',
+//       sender: 'Bob',
+//       text: 'Hey this is bob the builder'
+//     },
+//     {
+//       id: '2a',
+//       sender: 'Jimmy',
+//       text: 'jimmy the ripper is coming for you'
+//     }
+//   ]
+// }
 
 export type MessageProps = {
   id: string,
@@ -34,7 +52,7 @@ const SERVER_URL = 'http://localhost:3000'
 function App() {
 
   const [step, setStep] = useState(0)
-  const [threads, setThreads] = useState(structuredClone(tempThread))
+  const [threads, setThreads] = useState(structuredClone(tempThreads))
 
   // useEffect(() => {
   //   getThreads()
@@ -42,9 +60,10 @@ function App() {
   // },[step])
 
   async function getThreads() {
-    const response = await fetch(`${SERVER_URL}/threads/all`)
+    const response = await fetch(`${SERVER_URL}/allthreads`)
     const jsonResponse = await response.json()
-    console.log(jsonResponse)
+    console.log('response', jsonResponse)
+    setThreads(jsonResponse)
 
   }
 
@@ -54,8 +73,10 @@ function App() {
         <h1 className="text-4xl">
           Chat app
         </h1>
+        {threads.map((thread) => {
+          return <Thread {...thread} />
+        })}
 
-        <Thread {...tempThread} />
       </div>
       <div>
         <button onClick={getThreads} className='border border-blue-500'>
