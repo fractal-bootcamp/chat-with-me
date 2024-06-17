@@ -27,6 +27,13 @@ export const Thread = (props: ThreadProps) => {
                 </div>
             </motion.div>
 
+            <div className="flex flex-row gap-2 justify-center">
+                <input className="border border-black" placeholder="new message">
+
+                </input>
+                <button className="border border-black" type="submit">submit</button>
+            </div>
+
         </div>
     )
 }
