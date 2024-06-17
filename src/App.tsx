@@ -1,8 +1,10 @@
 
 import { useEffect, useState } from 'react'
 import './App.css'
+import { Thread } from './components/Thread'
+import { motion } from 'framer-motion'
 
-type ThreadProps = {
+export type ThreadProps = {
   id: string,
   messages: MessageProps[]
 }
@@ -73,16 +75,16 @@ function App() {
         <h1 className="text-4xl">
           Chat app
         </h1>
-        {threads.map((thread) => {
-          return <Thread {...thread} />
-        })}
+
+        <div className='flex flex-col gap-4'>
+
+          {threads.map((thread) => {
+            return <Thread {...thread} />
+          })}
+        </div>
 
       </div>
       <div>
-        <button onClick={getThreads} className='border border-blue-500'>
-          Get threads
-        </button>
-
 
       </div>
 
@@ -92,35 +94,8 @@ function App() {
   )
 }
 
-const Thread = (props: ThreadProps) => {
 
-  const { id } = props
-  const { messages } = props
 
-  return (
-    <div className='flex flex-col border border-black'>
-      <h3>Thread ID: {id}</h3>
-      <div>
-        {messages.map((message, i) => {
-          return <Message {...message} />
-        })}
-      </div>
 
-    </div>
-  )
-}
-
-const Message = (props: MessageProps) => {
-  const { text } = props
-  const { sender } = props
-  const { id } = props
-  return (
-    <div className='flex border border-black'>
-      <p>Message ({id})from {sender}: {text}</p>
-
-    </div>
-
-  )
-}
 
 export default App

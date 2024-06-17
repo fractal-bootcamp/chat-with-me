@@ -18,7 +18,7 @@ const threads: Thread[] = [
         messages: [
             {
                 id: '1a',
-                sender: 'Jin Yang',
+                sender: 'My Guy',
                 text: 'Hey this is bob the builder'
             },
             {
