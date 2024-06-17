@@ -1,10 +1,14 @@
 import express from 'express';
+import MessageService, { Thread } from './messageService';
 
 const app = express()
 
 app.get('/', (req, res) => {
     res.send('hello world')
 })
+
+app.use(express.json())
+
 
 const threads: Thread[] = [
     {
@@ -43,7 +47,7 @@ const threads: Thread[] = [
 app.get('/threads/:id', (req, res) => {
     const threadId = req.params.id
     const thread = MessageService(threads).findThread(threadId)
-    res.send(thread)
+    res.json(JSON.stringify(thread))
 })
 
 const PORT = 3000
