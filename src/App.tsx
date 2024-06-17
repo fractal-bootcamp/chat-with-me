@@ -54,10 +54,10 @@ function App() {
   const [step, setStep] = useState(0)
   const [threads, setThreads] = useState(structuredClone(tempThreads))
 
-  // useEffect(() => {
-  //   getThreads()
-  //   setTimeout(() => setStep(step + 1), 1000)
-  // },[step])
+  useEffect(() => {
+    getThreads()
+    setTimeout(() => setStep(step + 1), 1000)
+  }, [step])
 
   async function getThreads() {
     const response = await fetch(`${SERVER_URL}/allthreads`)
