@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import MessageService, { Thread } from './messageService';
 
 const app = express()
@@ -8,6 +9,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(express.json())
+app.use(cors())
 
 
 const threads: Thread[] = [
@@ -45,10 +47,16 @@ const threads: Thread[] = [
 ]
 
 app.get('/threads/:id', (req, res) => {
+
     const threadId = req.params.id
     const thread = MessageService(threads).findThread(threadId)
     res.json(JSON.stringify(thread))
 })
+
+app.get('/threads/all', (req, res) => {
+    res.send(JSON.stringify(threads))
+})
+
 
 const PORT = 3000
 app.listen(PORT, () => {
