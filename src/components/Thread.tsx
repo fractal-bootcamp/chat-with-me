@@ -11,9 +11,9 @@ export type Thread = {
 }
 const initialThread: Thread =
 {
-    id: '',
+    id: 'initialThread',
     messages: [
-        { id: '', sender: '', text: '' }
+        { id: 'initialThreadMessage', sender: '', text: '' }
     ]
 }
 
@@ -42,9 +42,10 @@ export const Thread = (props: ThreadProps) => {
 
     async function getCurrentThread() {
         const response = await fetch(`${SERVER_URL}/threads/${id}`)
-        const thread = await response.json() as Thread
-        if (thread.id) {
-            setThread(thread)
+        const thr = await response.json()
+        if (thr.id) {
+            console.log("parsedThreadead before set", thr)
+            setThread(thr)
         }
     }
 
@@ -60,9 +61,12 @@ export const Thread = (props: ThreadProps) => {
                 whileHover={{ scale: [null, 1.5, 1.4] }}
                 transition={{ duration: 0.3 }}
             >
-                <h3>Thread ID: {id}</h3>
+                <h3>Thread ID: {thread.id}</h3>
+                <h2></h2>
                 <div>
-                    {thread.messages?.map((message) => {
+                    {thread.messages.map((message) => {
+                        // console.log(('hey im a thread' + JSON.stringify(thread)))
+                        // console.log(('hey im a message' + JSON.stringify(message)))
                         return <Message key={message.id} {...message} />
                     })}
                 </div>
