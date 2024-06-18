@@ -49,7 +49,7 @@ export type MessageProps = {
   text: string
 }
 
-const SERVER_URL = 'http://localhost:3000'
+export const SERVER_URL = 'http://localhost:3000'
 
 function App() {
 
@@ -71,6 +71,9 @@ function App() {
 
   return (
     <>
+
+
+
       <div>
         <h1 className="text-4xl">
           Chat app

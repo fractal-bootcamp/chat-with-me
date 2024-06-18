@@ -1,4 +1,5 @@
-import { ThreadProps } from "../App"
+import { useState } from "react"
+import { SERVER_URL, ThreadProps } from "../App"
 import { Message } from "./Message"
 import { motion } from "framer-motion"
 
@@ -7,6 +8,9 @@ export const Thread = (props: ThreadProps) => {
 
     const { id } = props
     const { messages } = props
+
+    const [msgInput, setMsgInput] = useState('');
+    const [senderInput, setSenderInput] = useState('')
 
     return (
         <div className='flex flex-col border border-black'>
@@ -27,13 +31,22 @@ export const Thread = (props: ThreadProps) => {
                 </div>
             </motion.div>
 
+            {/* Input */}
             <div className="flex flex-row gap-2 justify-center">
-                <input className="border border-black" placeholder="new message">
 
+                <input name="sender" onChange={(event) => {
+                    setSenderInput(event.target.value);
+                }} className="border border-black w-[25%]" placeholder="your name"></input>
+                <input name="text" onChange={(event) => {
+                    setMsgInput(event.target.value)
+                }}
+                    className="border border-black" placeholder="new message">
                 </input>
-                <button className="border border-black" type="submit">submit</button>
+                <button onClick={() => {
+
+                }} className="border border-black" type="submit">submit</button>
             </div>
 
-        </div>
+        </div >
     )
 }
