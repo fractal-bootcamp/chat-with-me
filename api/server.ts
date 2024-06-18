@@ -62,6 +62,7 @@ app.get('/allthreads', (req, res) => {
 
 app.post('/threads/:id/message', (req, res) => {
 
+    console.log('ayo! received')
     // req 
     const threadId = req.params.id
     const thread = MessageService(threads).findThread(threadId)

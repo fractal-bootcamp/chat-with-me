@@ -43,19 +43,19 @@ export const Thread = (props: ThreadProps) => {
                     className="border border-black" placeholder="new message">
                 </input>
                 <button onClick={async () => {
-                    await fetch(`${SERVER_URL}/${id}/message`, {
+
+                    return await fetch(`${SERVER_URL}/threads/${id}/message`, {
                         method: "POST",
                         mode: "cors",
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            "sender": { senderInput },
-                            "message": { msgInput }
+                            "sender": senderInput,
+                            "text": msgInput
                         })
                     }
                     )
-                    debugger;
                     console.log('click')
 
                 }} className="border border-black" type="submit">submit</button>

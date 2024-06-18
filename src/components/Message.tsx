@@ -6,7 +6,7 @@ export const Message = (props: MessageProps) => {
     const { id } = props
     return (
         <div className='flex border border-black'>
-            <p>Message ({id})from {sender}: {text}</p>
+            <p>Message from {sender}: {text}</p>
 
         </div>
 
