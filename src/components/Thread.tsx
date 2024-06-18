@@ -3,6 +3,8 @@ import { SERVER_URL } from "./Lobby"
 import { Message } from "./Message"
 import { motion } from "framer-motion"
 import { useParams } from "react-router-dom"
+import { Wind } from "lucide-react"
+import { Button, ScrollView, Window, WindowContent, WindowHeader } from "react95"
 
 
 export type Thread = {
@@ -51,56 +53,81 @@ export const Thread = (props: ThreadProps) => {
 
 
     return (
-        <div className='flex flex-col border border-black'>
-            <motion.div
-                className="box"
-                /**
-                 * Setting the initial keyframe to "null" will use
-                 * the current value to allow for interruptable keyframes.
-                 */
-                whileHover={{ scale: [null, 1.5, 1.4] }}
-                transition={{ duration: 0.3 }}
-            >
-                <h3>Thread ID: {thread.id}</h3>
-                <h2></h2>
-                <div>
-                    {thread.messages.map((message) => {
-                        // console.log(('hey im a thread' + JSON.stringify(thread)))
-                        // console.log(('hey im a message' + JSON.stringify(message)))
-                        return <Message key={message.id} {...message} />
-                    })}
-                </div>
-            </motion.div>
+        <>
+            <div className="h-screen w-screen bg-[#A2DBD2]">
 
-            {/* Input */}
-            <div className="flex flex-row gap-2 justify-center">
 
-                <input name="sender" onChange={(event) => {
-                    setSenderInput(event.target.value);
-                }} className="border border-black w-[25%]" placeholder="your name"></input>
-                <input name="text" onChange={(event) => {
-                    setMsgInput(event.target.value)
-                }}
-                    className="border border-black" placeholder="new message">
-                </input>
-                <button onClick={async () => {
+                <Window className="window">
+                    <WindowHeader className="window-title">
+                        <span>Thread ID: {thread.id}</span>
+                        <Button>
+                            <span className='close-icon' />
 
-                    return await fetch(`${SERVER_URL}/threads/${id}/message`, {
-                        method: "POST",
-                        mode: "cors",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            "sender": senderInput,
-                            "text": msgInput
-                        })
-                    }
-                    )
+                        </Button>
+                    </WindowHeader>
 
-                }} className="border border-black" type="submit">submit</button>
+                    <WindowContent>
+                        <ScrollView id='cutout' className="bg-white">
+                            <motion.div
+                                className="box mx-2 my-3"
+                                /**
+                                 * Setting the initial keyframe to "null" will use
+                                 * the current value to allow for interruptable keyframes.
+                                 */
+                                whileHover={{ scale: [null, 1.5, 1.4] }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <h2></h2>
+                                <div>
+                                    {thread.messages.map((message) => {
+                                        // console.log(('hey im a thread' + JSON.stringify(thread)))
+                                        // console.log(('hey im a message' + JSON.stringify(message)))
+                                        return <Message key={message.id} {...message} />
+                                    })}
+                                </div>
+                            </motion.div>
+
+                        </ScrollView>
+                        <div className=''>
+
+
+                            {/* Input */}
+                            <div className="flex flex-row gap-2 justify-center">
+
+                                <input name="sender" onChange={(event) => {
+                                    setSenderInput(event.target.value);
+                                }} className="border border-black w-[25%]" placeholder="your name"></input>
+                                <input name="text" onChange={(event) => {
+                                    setMsgInput(event.target.value)
+                                }}
+                                    className="border border-black" placeholder="new message">
+                                </input>
+                                <button onClick={async () => {
+
+                                    return await fetch(`${SERVER_URL}/threads/${id}/message`, {
+                                        method: "POST",
+                                        mode: "cors",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            "sender": senderInput,
+                                            "text": msgInput
+                                        })
+                                    }
+                                    )
+
+                                }} className="border border-black" type="submit">submit</button>
+                            </div>
+
+                        </div >
+                    </WindowContent>
+
+
+                </Window>
             </div>
 
-        </div >
+
+        </>
     )
 }
