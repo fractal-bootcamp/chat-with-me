@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2"
 
 export type Thread = {
     id: string,
@@ -14,21 +15,31 @@ export const MessageService = (threads: Thread[]) => {
 
             console.log('threads are', threads)
             console.log('looking for id ', messageId)
-            debugger;
             const foundThread = threads.find((thread) => {
                 return thread.id === messageId;
             })
 
             if (!foundThread) {
                 console.log("Error: no thread found")
-                return
+                return null
             }
 
             return foundThread
 
-        }
+        },
         // appendMessage
         //
+
+        appendMessage: (thread: Thread, sender: string, text: string) => {
+            thread.messages.push(
+                {
+                    id: createId(),
+                    sender: sender,
+                    text: text
+                }
+            )
+
+        }
     }
 
 }

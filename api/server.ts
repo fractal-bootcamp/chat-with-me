@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import MessageService, { Thread } from './messageService';
+import bodyParser from 'body-parser';
 
 const app = express()
 
@@ -9,6 +10,8 @@ app.get('/', (req, res) => {
 })
 
 app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cors())
 
 
@@ -24,7 +27,7 @@ const threads: Thread[] = [
             {
                 id: '2a',
                 sender: 'Jimmy',
-                text: 'jimmy the ripper is coming for you'
+                text: 'im just a guy im just a gooby guy'
             }
         ]
     },
@@ -33,8 +36,8 @@ const threads: Thread[] = [
         messages: [
             {
                 id: '3a',
-                sender: 'Jefwefhnny',
-                text: 'You like my cakes? '
+                sender: 'Johnny',
+                text: 'You like my cakes? Best cakes out there'
             },
             {
                 id: '4a',
@@ -55,6 +58,32 @@ app.get('/threads/:id', (req, res) => {
 
 app.get('/allthreads', (req, res) => {
     res.send(JSON.stringify(threads))
+})
+
+app.post('/threads/:id/message', (req, res) => {
+
+    // req 
+    const threadId = req.params.id
+    const thread = MessageService(threads).findThread(threadId)
+
+    console.log('body' + req)
+    const { sender } = req.body
+    const { text } = req.body
+    console.log(sender)
+    console.log(text)
+
+    if (thread) {
+        debugger;
+
+        MessageService(threads).appendMessage(thread, sender, text)
+        console.log("successful add")
+        res.send('cool')
+    }
+    else {
+        res.send('Error: no thread found')
+    }
+
+
 })
 
 
