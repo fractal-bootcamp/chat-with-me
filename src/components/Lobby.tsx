@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { ThreadProps } from "../App"
 import { Thread } from "./Thread"
 
 
-const initialThreads: ThreadProps[] = [
+const initialThreads: Thread[] = [
     {
         id: '',
         messages: []
@@ -39,7 +38,7 @@ export const Lobby = () => {
             <div className='flex flex-col gap-4'>
 
                 {threads.map((thread) => {
-                    return <Thread {...thread} />
+                    return <Thread id={thread.id} />
                 })}
 
 

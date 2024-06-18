@@ -1,17 +1,53 @@
-import { useState } from "react"
-import { ThreadProps } from "../App"
+import { useEffect, useState } from "react"
 import { SERVER_URL } from "./Lobby"
 import { Message } from "./Message"
 import { motion } from "framer-motion"
+import { useParams } from "react-router-dom"
 
+
+export type Thread = {
+    id: string,
+    messages: Message[]
+}
+const initialThread: Thread =
+{
+    id: '',
+    messages: [
+        { id: '', sender: '', text: '' }
+    ]
+}
+
+
+type ThreadProps = {
+    id?: string
+}
 
 export const Thread = (props: ThreadProps) => {
+    const id = props.id ? props.id : useParams().id
 
-    const { id } = props
-    const { messages } = props
+    console.log('hello')
+
+    const [step, setStep] = useState(0)
+    const [thread, setThread] = useState(structuredClone(initialThread))
+
 
     const [msgInput, setMsgInput] = useState('');
     const [senderInput, setSenderInput] = useState('')
+
+
+    useEffect(() => {
+        getCurrentThread()
+        setTimeout(() => setStep(step + 1), 1000)
+    }, [step])
+
+    async function getCurrentThread() {
+        const response = await fetch(`${SERVER_URL}/threads/${id}`)
+        const thread = await response.json() as Thread
+        if (thread.id) {
+            setThread(thread)
+        }
+    }
+
 
     return (
         <div className='flex flex-col border border-black'>
@@ -26,8 +62,8 @@ export const Thread = (props: ThreadProps) => {
             >
                 <h3>Thread ID: {id}</h3>
                 <div>
-                    {messages.map((message) => {
-                        return <Message {...message} />
+                    {thread.messages?.map((message) => {
+                        return <Message key={message.id} {...message} />
                     })}
                 </div>
             </motion.div>

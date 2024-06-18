@@ -4,10 +4,12 @@ import './App.css'
 import { Thread } from './components/Thread'
 import { motion } from 'framer-motion'
 
-export type ThreadProps = {
-  id: string,
-  messages: MessageProps[]
-}
+// export type ThreadProps = {
+//   id: string,
+//   messages: MessageProps[]
+// }
+
+
 
 
 // const tempThread = {
