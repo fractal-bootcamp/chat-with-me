@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { SERVER_URL, ThreadProps } from "../App"
+import { ThreadProps } from "../App"
+import { SERVER_URL } from "./Lobby"
 import { Message } from "./Message"
 import { motion } from "framer-motion"
 
@@ -25,7 +26,7 @@ export const Thread = (props: ThreadProps) => {
             >
                 <h3>Thread ID: {id}</h3>
                 <div>
-                    {messages.map((message, i) => {
+                    {messages.map((message) => {
                         return <Message {...message} />
                     })}
                 </div>
@@ -56,7 +57,6 @@ export const Thread = (props: ThreadProps) => {
                         })
                     }
                     )
-                    console.log('click')
 
                 }} className="border border-black" type="submit">submit</button>
             </div>
