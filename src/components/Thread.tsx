@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { SERVER_URL } from "./Lobby"
 import { Message } from "./Message"
 import { motion } from "framer-motion"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Wind } from "lucide-react"
 import { Button, ScrollView, TextInput, Window, WindowContent, WindowHeader } from "react95"
 
@@ -25,6 +25,8 @@ type ThreadProps = {
 }
 
 export const Thread = (props: ThreadProps) => {
+    const navigate = useNavigate();
+
     const id = props.id ? props.id : useParams().id
 
     console.log('hello')
@@ -61,7 +63,10 @@ export const Thread = (props: ThreadProps) => {
                     <span>Thread ID: {thread.id}
 
                     </span>
-                    <Button>
+                    <Button onClick={() => {
+                        console.log('close click')
+                        navigate('/threads')
+                    }}>
                         <img className="w-[20px]" src="/close.png" />
 
                         {/* <span className="close-button" style={{ backgroundImage: "close.png" }} /> */}
