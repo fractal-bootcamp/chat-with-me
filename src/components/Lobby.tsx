@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+
 import { Thread } from "./Thread"
 
 
@@ -35,10 +37,10 @@ export const Lobby = () => {
     return (
         <>
 
-            <div className='flex flex-col gap-4'>
+            <div className='flex flex-row gap-4'>
 
                 {threads.map((thread) => {
-                    return <Thread id={thread.id} />
+                    return <LobbyThread id={thread.id} />
                 })}
 
 
@@ -49,4 +51,27 @@ export const Lobby = () => {
         </>
     )
 
+}
+
+export const LobbyThread = (props: { id: string }) => {
+    const navigate = useNavigate();
+
+
+    return (
+        <>
+            <div onClick={() => {
+                navigate(`/threads/${props.id}`)
+            }} className="flex flex-col justify-center " >
+
+                <img className="flex flex-col w-[200px]" src="/yarn.png" />
+                <p>
+                    Thread: {props.id}
+                </p>
+            </div>
+        </>
+
+
+
+
+    )
 }

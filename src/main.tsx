@@ -65,7 +65,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GlobalStyles />
     <ThemeProvider theme={peggysPastels}>
-      <RouterProvider router={router} />
+      <div className="flex h-screen w-screen bg-[#A2DBD2] items-center justify-center">
+        <RouterProvider router={router} />
+      </div>
     </ThemeProvider>
   </React.StrictMode>,
 )
