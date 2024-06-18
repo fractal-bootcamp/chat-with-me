@@ -4,7 +4,7 @@ import { Message } from "./Message"
 import { motion } from "framer-motion"
 import { useParams } from "react-router-dom"
 import { Wind } from "lucide-react"
-import { Button, ScrollView, Window, WindowContent, WindowHeader } from "react95"
+import { Button, ScrollView, TextInput, Window, WindowContent, WindowHeader } from "react95"
 
 
 export type Thread = {
@@ -54,16 +54,21 @@ export const Thread = (props: ThreadProps) => {
 
     return (
         <>
-            <div className="h-screen w-screen bg-[#A2DBD2]">
+            <div className="flex h-screen w-screen bg-[#A2DBD2] items-center justify-center">
 
 
                 <Window className="window">
-                    <WindowHeader className="window-title">
-                        <span>Thread ID: {thread.id}</span>
+                    <WindowHeader className="flex flex-row justify-between window-title">
+                        <span>Thread ID: {thread.id}
+
+                        </span>
                         <Button>
-                            <span className='close-icon' />
+                            <img className="w-[20px]" src="/close.png" />
+
+                            {/* <span className="close-button" style={{ backgroundImage: "close.png" }} /> */}
 
                         </Button>
+
                     </WindowHeader>
 
                     <WindowContent>
@@ -92,17 +97,18 @@ export const Thread = (props: ThreadProps) => {
 
 
                             {/* Input */}
-                            <div className="flex flex-row gap-2 justify-center">
+                            <div className="flex flex-row gap-2 my-3 justify-center">
 
-                                <input name="sender" onChange={(event) => {
+                                <TextInput name="sender" onChange={(event) => {
                                     setSenderInput(event.target.value);
-                                }} className="border border-black w-[25%]" placeholder="your name"></input>
-                                <input name="text" onChange={(event) => {
+                                }} className="border border-black w-[25%]" placeholder="your name"></TextInput>
+                                <TextInput name="text" onChange={(event) => {
                                     setMsgInput(event.target.value)
                                 }}
                                     className="border border-black" placeholder="new message">
-                                </input>
-                                <button onClick={async () => {
+                                </TextInput>
+
+                                <Button primary onClick={async () => {
 
                                     return await fetch(`${SERVER_URL}/threads/${id}/message`, {
                                         method: "POST",
@@ -117,7 +123,7 @@ export const Thread = (props: ThreadProps) => {
                                     }
                                     )
 
-                                }} className="border border-black" type="submit">submit</button>
+                                }} className="border border-black" type="submit">submit</Button>
                             </div>
 
                         </div >
