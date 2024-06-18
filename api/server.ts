@@ -17,10 +17,10 @@ app.use(cors())
 
 const threads: Thread[] = [
     {
-        id: '1a',
+        id: '11a',
         messages: [
             {
-                id: '1a',
+                id: '11a',
                 sender: 'My Guy',
                 text: 'Hey this is bob the builder'
             },
@@ -53,11 +53,11 @@ app.get('/threads/:id', (req, res) => {
 
     const threadId = req.params.id
     const thread = MessageService(threads).findThread(threadId)
-    res.json(JSON.stringify(thread))
+    res.json(thread)
 })
 
 app.get('/allthreads', (req, res) => {
-    res.send(JSON.stringify(threads))
+    res.send(threads)
 })
 
 app.post('/threads/:id/message', (req, res) => {
