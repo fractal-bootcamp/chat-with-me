@@ -79,12 +79,10 @@ export const Thread = (props: ThreadProps) => {
                     <ScrollView id='cutout' className="bg-white">
                         <motion.div
                             className="box mx-2 my-3"
-                            /**
-                             * Setting the initial keyframe to "null" will use
-                             * the current value to allow for interruptable keyframes.
-                             */
-                            whileHover={{ scale: [null, 1.5, 1.4] }}
-                            transition={{ duration: 0.3 }}
+                        /**
+                         * Setting the initial keyframe to "null" will use
+                         * the current value to allow for interruptable keyframes.
+                         */
                         >
                             <h2></h2>
                             <div>

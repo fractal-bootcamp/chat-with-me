@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"
 
 import { Thread } from "./Thread"
 
@@ -59,15 +60,17 @@ export const LobbyThread = (props: { id: string }) => {
 
     return (
         <>
-            <div onClick={() => {
+            <motion.div onClick={() => {
                 navigate(`/threads/${props.id}`)
-            }} className="flex flex-col justify-center " >
+            }} className="flex flex-col justify-center "
+                whileHover={{ scale: [null, 1.4, 1.3] }}
+                transition={{ duration: 0.3 }}>
 
                 <img className="flex flex-col w-[200px]" src="/yarn.png" />
                 <p>
                     Thread: {props.id}
                 </p>
-            </div>
+            </motion.div>
         </>
 
 
